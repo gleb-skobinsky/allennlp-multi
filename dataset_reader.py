@@ -97,7 +97,7 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
                     yield instance
 
     def text_to_instance(
-        self, text: str, labels: List[str] = None
+        self, text: str, labels: List[str] = None, label: str = None
     ) -> Instance:  # type: ignore
         """
         # Parameters
