@@ -52,11 +52,8 @@
         ]
       ]
     },
-    "patience": 1,
-    "num_epochs": 5,
-    "checkpointer": {
-      "num_serialized_models_to_keep": 1
-    },
+    "patience": 5,
+    "num_epochs": 15,
     "grad_norm": 1.0,
     "learning_rate_scheduler": {
       "type": "slanted_triangular"
