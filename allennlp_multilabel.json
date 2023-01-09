@@ -37,7 +37,7 @@
       "sorting_keys": ["tokens"],
       "batch_size": 16
     },
-    "num_workers": 1
+    "num_workers": 0
   },
   "trainer": {
     "use_amp": true,
