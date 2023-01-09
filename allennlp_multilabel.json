@@ -1,0 +1,65 @@
+{
+  "vocabulary": {
+    "max_vocab_size": {
+      "tokens": 0
+    }
+  },
+  "dataset_reader": {
+    "type": "multi_label",
+    "tokenizer": {
+      "type": "pretrained_transformer",
+      "model_name": "bert-base-cased",
+      "max_length": 510
+    },
+    "token_indexers": {
+      "tokens": {
+        "type": "pretrained_transformer",
+        "model_name": "bert-base-cased"
+      }
+    }
+  },
+  "model": {
+    "type": "multi_label",
+    "text_field_embedder": {
+      "token_embedders": {
+        "tokens": {
+          "type": "pretrained_transformer",
+          "model_name": "bert-base-cased"
+        }
+      }
+    }
+  },
+  "train_data_path": "/content/train_en.json",
+  "validation_data_path": "/content/test_en.json",
+  "data_loader": {
+    "batch_sampler": {
+      "type": "bucket",
+      "sorting_keys": ["tokens"],
+      "batch_size": 16
+    },
+    "num_workers": 1
+  },
+  "trainer": {
+    "use_amp": true,
+    "optimizer": {
+      "type": "huggingface_adamw",
+      "lr": 2e-5,
+      "weight_decay": 0.0,
+      "parameter_groups": [
+        [
+          ["(?=.*bert-base-cased)(?=.*\\.+)(?!.*(LayerNorm|bias)).*$"],
+          { "weight_decay": 0.1 }
+        ]
+      ]
+    },
+    "patience": 1,
+    "num_epochs": 5,
+    "checkpointer": {
+      "num_serialized_models_to_keep": 1
+    },
+    "grad_norm": 1.0,
+    "learning_rate_scheduler": {
+      "type": "slanted_triangular"
+    }
+  }
+}
