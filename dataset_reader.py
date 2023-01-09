@@ -100,7 +100,7 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
 
     @overrides
     def text_to_instance(
-        self, text: str, labels: List[str] = None
+        self, text: str, label: List[str] = None
     ) -> Instance:  # type: ignore
         """
         # Parameters
