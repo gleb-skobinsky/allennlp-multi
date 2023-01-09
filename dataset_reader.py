@@ -100,7 +100,7 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
 
     @overrides
     def text_to_instance(
-        self, text: str, labels: List[Union[str, int]] = None
+        self, text: str, labels: List[str] = None
     ) -> Instance:  # type: ignore
         """
         # Parameters
@@ -136,6 +136,8 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
             fields["tokens"] = TextField(tokens, self._token_indexers)
         if labels is not None:
             fields["labels"] = MultiLabelField(
-                labels, skip_indexing=self._skip_label_indexing, num_labels=self._num_labels
+                labels,
+                skip_indexing=self._skip_label_indexing,
+                num_labels=self._num_labels,
             )
         return Instance(fields)
