@@ -9,6 +9,7 @@ from allennlp.data.fields import Field, ListField, MultiLabelField, TextField
 from allennlp.data.instance import Instance
 from allennlp.data.token_indexers import TokenIndexer
 from allennlp.data.tokenizers import Tokenizer
+from overrides import overrides
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +72,7 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
 
         self._num_labels = num_labels
 
+    @overrides
     def _read(self, file_path: str) -> Iterable[Instance]:
         # if `file_path` is a URL, redirect to the cache
         file_path = cached_path(file_path)
@@ -96,8 +98,9 @@ class MultiLabelTextClassificationJsonReader(TextClassificationJsonReader):
                 if instance is not None:
                     yield instance
 
+    @overrides
     def text_to_instance(
-        self, text: str, labels: List[str] = None, label: str = None
+        self, text: str, labels: List[Union[str, int]] = None
     ) -> Instance:  # type: ignore
         """
         # Parameters
